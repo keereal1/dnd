@@ -41,13 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const el = e.currentTarget;
     const parent = el.closest(".collumn");
 
-    const currentForm = document.querySelector(".formContainer");
+    const currentForm = document.querySelector(".form-container");
     if (currentForm) {
       currentForm.remove();
     }
 
     const formContainer = document.createElement("div");
-    formContainer.classList.add("formContainer");
+    formContainer.classList.add("form-container");
     const form = document.createElement("form");
     form.classList.add("form");
 
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function addNewCard(e) {
     e.preventDefault();
     const el = e.currentTarget;
-    const formContainer = document.querySelector(".formContainer");
+    const formContainer = document.querySelector(".form-container");
     const field = document.querySelector(".text-field");
     if (field.value.trim() === "") {
       return;
@@ -137,7 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function mouseDown(e) {
     e.preventDefault();
     activeElement = e.target.closest(".card");
-    console.log(activeElement);
     if (!activeElement) {
       return;
     }
@@ -145,10 +144,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const { left, top } = activeElement.getBoundingClientRect();
     shiftX = e.clientX - left;
     shiftY = e.clientY - top;
-
     activeElement.classList.add("dragged");
-    container.addEventListener("mouseup", onMouseUp);
+
+    activeElement.style.cursor = "grabbing";
     container.addEventListener("mouseover", onMouseOver);
+    container.addEventListener("mouseup", onMouseUp);
   }
 
   container.addEventListener("mousedown", mouseDown);
@@ -160,6 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const placeEl = createPlaceholder();
     const mouseOverItem = e.target;
     const closestCard = mouseOverItem.closest(".card");
+
     if (!closestCard) {
       const closestCardContainer = mouseOverItem.querySelector(".cards-list");
       if (!closestCardContainer) return;
