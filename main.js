@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     shiftX = e.clientX - left;
     shiftY = e.clientY - top;
     activeElement.classList.add("dragged");
-    activeElement.style.cursor = "grabbing";
+    document.body.classList.add("dragging-active");
     container.addEventListener("mouseover", onMouseOver);
     container.addEventListener("mouseup", onMouseUp);
   }
@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   function onMouseUp(e) {
-    console.log(e);
+    document.body.classList.add("dragging-active");
     const mouseUpItem = e.target;
     const closestCard = mouseUpItem.closest(".card");
     if (!closestCard) {
